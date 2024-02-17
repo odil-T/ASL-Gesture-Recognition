@@ -83,4 +83,6 @@ model.fit(X_train, y_train,
           verbose=True
          )
 
-model.save('models/model_NN_MP.keras')
+model.save('models/model_NN_MP_for_st.h5')
+model.save('models/model_NN_MP_for_st.keras')
+model.save('models/model_NN_MP_for_st.tf')

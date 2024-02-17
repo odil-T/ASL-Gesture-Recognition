@@ -3,7 +3,7 @@ import numpy as np
 import mediapipe as mp
 import tensorflow as tf
 
-model_path = 'models/model_NN_MP.keras'
+model_path = 'models/model_NN_MP_for_st.keras'
 
 model = tf.keras.models.load_model(model_path)
 category_names = ['A', 'B', 'C', 'D', 'del', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'space', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']

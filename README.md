@@ -8,3 +8,7 @@ Visit the app through this link: [].
 The app can be run locally without Streamlit by running `app_local.py`. However, no key inputs were implemented for this file.
 
 `model_NN_MP.py` was used to train and save a neural network model. A Kaggle dataset was used to provide image data of the various ASL gestures: []. Mediapipe was used to detect and save the hand landmarks from said images. Those landmarks were then used as data to train the neural network model for classifying the gestures. The model was saved in three different formats in the `models` folder: `model_NN_MP_for_st.h5`, `model_NN_MP_for_st.keras`, and `model_NN_MP_for_st.tf`.
+
+The `sample_images` folder stores sample images of the different gestures for reference.
+
+`model_CNN_canny.py` is an experimental file that was used to train and save a convolutional neural network model after applying Canny edge detection on the images from the dataset.

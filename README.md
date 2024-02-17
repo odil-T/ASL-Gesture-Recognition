@@ -11,4 +11,4 @@ The app can be run locally without Streamlit by running `app_local.py`. However,
 
 The `sample_images` folder stores sample images of the different gestures for reference.
 
-`model_CNN_canny.py` is an experimental file that was used to train and save a convolutional neural network model after applying Canny edge detection on the images from the dataset.
+`model_CNN_canny.py` is an experimental file that was used to train and save another model. First, Canny edge detection was applied on the images from the dataset. Next, a convolutional neural network was trained and saved on the processed images.

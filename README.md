@@ -1,8 +1,8 @@
 # ASL-Gesture-Recognition
 
-This repository contains the source code needed to run the ASL Gesture Recognition Streamlit app. The app can detect the ASL gestures and type the corresponding letters on a provided text box.
+App link: []
 
-Visit the app through this link: [].
+This repository contains the source code needed to run the ASL Gesture Recognition Streamlit app. The app can detect the ASL gestures and type the corresponding letters on a provided text box.
 
 `app_st.py` contains the code used to launch the Streamlit app. This app uses model parameters stored in `models/model_NN_MP_for_st.h5` to make predictions.
 The app can be run locally without Streamlit by running `app_local.py`. However, no key inputs were implemented for this file.

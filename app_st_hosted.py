@@ -6,7 +6,6 @@ import numpy as np
 import mediapipe as mp
 import tensorflow as tf
 import streamlit as st
-import threading
 from streamlit_webrtc import webrtc_streamer
 
 
@@ -20,9 +19,6 @@ sample_image_paths = [f'sample_images/{image_name}' for image_name in os.listdir
 mp_hands = mp.solutions.hands
 hands = mp_hands.Hands()
 mp_drawing = mp.solutions.drawing_utils
-
-lock = threading.Lock()
-callback_container = {'y_pred': None}
 
 
 # Model Code
@@ -68,84 +64,30 @@ def video_frame_callback(frame):
             y_pred_text = category_names[y_pred_idx]
             cv2.putText(image, y_pred_text, (x_min, y_min - 5), cv2.FONT_HERSHEY_TRIPLEX, 1, (255, 0, 0), 2)
 
-            # Saving y_pred_text to be used in main thread
-            with lock:
-                callback_container['y_pred'] = y_pred_text
-
-    else:
-        y_pred_text = None
-
-        # Saving y_pred_text to be used in main thread
-        with lock:
-            callback_container['y_pred'] = y_pred_text
-
     return av.VideoFrame.from_ndarray(image, format='bgr24')
 
 
 # Streamlit Code
-st.set_page_config(layout="wide")
-
 st.header('ASL Gesture Recognition App', divider='green')
 
 with st.container(border=True):
     st.write('''
     This app can detect the hand gestures of the American Sign Language. 
     Click on `START` to open the webcam. 
-    Detected characters are written on the text box to the right of the webcam input. 
     Refer to the images below the webcam input for available gestures. 
-    The `del` gesture deletes the last written character. 
-    The `space` gesture adds a space character. 
-    If you wish to enter the same character multiple times in a row, just hide your hand from the webcam and then show it again. 
-    Click on the `Clear Text` button to clear all the written text.
     Please note that only one hand is detected at a time. 
     ''')
 st.write('#')
 
-col1, col2 = st.columns(2)
 
-with col1:
-    webcam_placeholder = st.empty()
-
-with col2:
-    with st.container(height=300):
-        text_output_placeholder = st.empty()
-
-    st.write('#')
-    clear_button = st.button('Clear Text')
-
-    if clear_button:
-        text_output = []
-        text_output_placeholder.text(''.join(text_output))
-
-# Callback & Main Thread
-text_output = []
-current_pred = None
+# Callback Thread
+webcam_placeholder = st.empty()
 
 with webcam_placeholder:
     ctx = webrtc_streamer(key='webcam',
                           video_frame_callback=video_frame_callback,
                           rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
                           media_stream_constraints={"video": True, "audio": False})
-
-while ctx.state.playing:
-    # Fetching y_pred_text from callback thread
-    with lock:
-        y_pred_text = callback_container['y_pred']
-
-    # When new gesture is detected
-    if current_pred != y_pred_text:
-        current_pred = y_pred_text
-
-        if y_pred_text == 'space':
-            text_output.append(' ')
-        elif y_pred_text == 'del':
-            text_output.pop()
-        elif y_pred_text is None:
-            current_pred = None
-        else:
-            text_output.append(y_pred_text)
-
-        text_output_placeholder.text(''.join(text_output))
 
 st.write('#')
 

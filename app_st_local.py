@@ -103,12 +103,13 @@ while capture.isOpened():
 
         cv2.rectangle(frame, (x_min, y_min), (x_max, y_max), (255, 0, 0), 3)
 
+        # Flipping X-axis landmarks for Left Hand
+        if (results.multi_hand_landmarks[0].landmark[mp_hands.HandLandmark.INDEX_FINGER_MCP].x >
+                results.multi_hand_landmarks[0].landmark[mp_hands.HandLandmark.PINKY_MCP].x):
+            x[:, ::3] = 1 - x[:, ::3]
+
         # Applying thresholding
         if np.max(model.predict(x)) >= 0.5:
-            # Flipping X-axis landmarks for Left Hand
-            if (results.multi_hand_landmarks[0].landmark[mp_hands.HandLandmark.INDEX_FINGER_MCP].x >
-                    results.multi_hand_landmarks[0].landmark[mp_hands.HandLandmark.PINKY_MCP].x):
-                x[:, ::3] = 1 - x[:, ::3]
 
             y_pred_idx = np.argmax(model.predict(x))
             y_pred_text = category_names[y_pred_idx]

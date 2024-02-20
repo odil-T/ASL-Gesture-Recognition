@@ -84,6 +84,8 @@ while capture.isOpened():
     if results.multi_hand_landmarks:
         single_hand_landmarks = [(landmark.x, landmark.y, landmark.z) for landmark in
                                  results.multi_hand_landmarks[0].landmark]
+
+        # Saving landmarks for model input
         x = np.array(single_hand_landmarks).reshape(1, 63)
 
         mp_drawing.draw_landmarks(frame, results.multi_hand_landmarks[0], mp_hands.HAND_CONNECTIONS,
@@ -102,18 +104,23 @@ while capture.isOpened():
         cv2.rectangle(frame, (x_min, y_min), (x_max, y_max), (255, 0, 0), 3)
 
         # Applying thresholding
-        if np.max(model.predict(x))>=0.5:
+        if np.max(model.predict(x)) >= 0.5:
+            # Flipping X-axis landmarks for Left Hand
+            if (results.multi_hand_landmarks[0].landmark[mp_hands.HandLandmark.INDEX_FINGER_MCP].x >
+                    results.multi_hand_landmarks[0].landmark[mp_hands.HandLandmark.PINKY_MCP].x):
+                x[:, ::3] = 1 - x[:, ::3]
+
             y_pred_idx = np.argmax(model.predict(x))
             y_pred_text = category_names[y_pred_idx]
             cv2.putText(frame, y_pred_text, (x_min, y_min-5), cv2.FONT_HERSHEY_TRIPLEX, 1, (255, 0, 0), 2)
 
             # When new gesture is detected
-            if current_pred!=y_pred_text:
+            if current_pred != y_pred_text:
                 current_pred = y_pred_text
 
-                if y_pred_text=='space':
+                if y_pred_text == 'space':
                     text_output.append(' ')
-                elif y_pred_text=='del':
+                elif y_pred_text == 'del':
                     text_output.pop()
                 else:
                     text_output.append(y_pred_text)

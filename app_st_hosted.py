@@ -28,7 +28,6 @@ callback_container = {'y_pred': None}
 # Model Code
 def video_frame_callback(frame):
     image = frame.to_ndarray(format='bgr24')  # treat as cv2 image
-
     image = cv2.flip(image, 1)
     height, width = image.shape[:-1]
     rgb_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
@@ -38,6 +37,8 @@ def video_frame_callback(frame):
     if results.multi_hand_landmarks:
         single_hand_landmarks = [(landmark.x, landmark.y, landmark.z) for landmark in
                                  results.multi_hand_landmarks[0].landmark]
+
+        # Saving landmarks for model input
         x = np.array(single_hand_landmarks).reshape(1, 63)
 
         mp_drawing.draw_landmarks(image, results.multi_hand_landmarks[0], mp_hands.HAND_CONNECTIONS,
@@ -55,8 +56,14 @@ def video_frame_callback(frame):
 
         cv2.rectangle(image, (x_min, y_min), (x_max, y_max), (255, 0, 0), 3)
 
+        # Flipping X-axis landmarks for Left Hand
+        if (results.multi_hand_landmarks[0].landmark[mp_hands.HandLandmark.INDEX_FINGER_MCP].x >
+                results.multi_hand_landmarks[0].landmark[mp_hands.HandLandmark.PINKY_MCP].x):
+            x[:, ::3] = 1 - x[:, ::3]
+
         # Applying threshold
         if np.max(model.predict(x))>=0.5:
+
             y_pred_idx = np.argmax(model.predict(x))
             y_pred_text = category_names[y_pred_idx]
             cv2.putText(image, y_pred_text, (x_min, y_min - 5), cv2.FONT_HERSHEY_TRIPLEX, 1, (255, 0, 0), 2)
@@ -122,7 +129,6 @@ with webcam_placeholder:
 
 while ctx.state.playing:
     # Fetching y_pred_text from callback thread
-    # This might cause lag, not sure
     with lock:
         y_pred_text = callback_container['y_pred']
 

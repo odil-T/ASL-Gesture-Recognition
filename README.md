@@ -10,8 +10,8 @@ This repository contains the source code needed to run the ASL Gesture Recogniti
 2. Clone The Repository - Open a terminal or command prompt and navigate to the directory where you want to store the application. Then, run the following command to clone the repository: `git clone https://github.com/odil-T/ASL-Gesture-Recognition.git`
 3. Make A New Environment - Navigate into the cloned repository directory with `cd ASL-Gesture-Recognition`. Run `pip install virtualenv` in a terminal or command prompt. Make a new virtual environment by running `virtualenv asl_app`. Activate the environment in Windows by running `asl_app\Scripts\activate` or in Mac/Linux by running `source asl_app/bin/activate`.
 5. Install Dependencies - While the virtual environment is active, install the required libraries by running `pip install -r requirements.txt`.
-6. Run The App - Once all the dependencies are installed, you can launch the application by running `streamlit run app_st_local.py`. This command will start the Streamlit application locally, and you should be able to access it in your web browser.
-7. After you're done using the application, you can deactivate the virtual environment by running `deactivate`.
+6. Run The App - Once all the dependencies are installed, you can launch the application by running `streamlit run app_st_local.py`. This launches the Streamlit app locally. A new window should appear in your browser.
+7. After you're done using the app, you can deactivate the virtual environment by running `deactivate`. You can close the app by closing the terminal/command prompt.
 
 ### Additional Information
 

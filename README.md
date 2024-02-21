@@ -9,7 +9,7 @@ This repository contains the source code needed to run the ASL Gesture Recogniti
 1. Ensure you have python installed.
 2. Download this repository.
 3. Open the terminal in the local repository and run `pip install -r requirements.txt` to install the necessary libraries.
-4. Enter `streamlit run app_st.py` in the terminal. The Streamlit app should open in a new window in your browser.
+4. Enter `streamlit run app_st_local.py` in the terminal. The Streamlit app should open in a new window in your browser.
 5. Close the terminal if you wish to close the app.
 
 ### Additional Information

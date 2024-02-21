@@ -6,8 +6,8 @@ This repository contains the source code needed to run the ASL Gesture Recogniti
 
 ### How to run the Streamlit app locally
 
-1. Ensure you have python installed.
-2. Download this repository.
+1. Install Python - Please make sure you have python 3.x installed.
+2. Clone The Repository - Open a terminal or command prompt and navigate to the directory where you want to store the application. Then, run the following command to clone the repository:
 3. Open the terminal in the local repository and run `pip install -r requirements.txt` to install the necessary libraries.
 4. Enter `streamlit run app_st_local.py` in the terminal. The Streamlit app should open in a new window in your browser.
 5. Close the terminal if you wish to close the app.

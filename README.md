@@ -4,7 +4,7 @@ This repository contains the source code needed to run the ASL Gesture Recogniti
 
 ### How to run the Streamlit app locally
 
-1. Install Python - Please make sure you have python 3.x installed.
+1. Install Python - You need a python 3.x installation.
 2. Clone The Repository - Open a terminal/command prompt and navigate to the directory where you want to store the application. Then, run the following command to clone the repository: `git clone https://github.com/odil-T/ASL-Gesture-Recognition.git`
 3. Make A New Environment - Navigate into the cloned repository directory with `cd ASL-Gesture-Recognition` and run `pip install virtualenv`. Make a new virtual environment by running `virtualenv asl_app`. Activate the environment in Windows by running `asl_app\Scripts\activate` or in Mac/Linux by running `source asl_app/bin/activate`.
 5. Install Dependencies - While the virtual environment is active, install the required libraries by running `pip install -r requirements.txt`.

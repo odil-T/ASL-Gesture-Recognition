@@ -2,6 +2,13 @@
 
 This repository contains the source code needed to run the ASL Gesture Recognition Streamlit app. The app can detect the ASL gestures and type the corresponding letters on a provided text box.
 
+App sample images:
+![app_screenshot_1](https://github.com/odil-T/ASL-Gesture-Recognition/assets/142138394/25806f94-1408-41f5-9430-d216bf273fe5)
+![app_screenshot_2](https://github.com/odil-T/ASL-Gesture-Recognition/assets/142138394/f892683c-6438-44cf-8c93-addb717dba9a)
+![app_screenshot_3](https://github.com/odil-T/ASL-Gesture-Recognition/assets/142138394/ca984d7a-7585-4588-bcd2-7ba29e2a468a)
+
+
+
 ### How to run the Streamlit app locally
 
 1. Install Python - You need a python 3.x installation.
